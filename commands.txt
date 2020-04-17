@@ -1,0 +1,19 @@
+# Setup
+conda create --name nep python=3.7
+conda activate nep
+pip install -r requirements.txt
+brew tap mongodb/brew
+brew install mongodb-community@4.2
+# Fill in your username here - it's the folder name that shows up when you type `ls /usr/Users` into terminal (not 'Shared')
+mkdir /Users/<Username>/data
+mkdir /Users/<Username>/data/db
+
+# Run server
+# Open a terminal and type:
+mongod --dbpath=/Users/<Username>/data/db
+# Open a separate terminal and navigate to the correct directory
+python run.py
+
+# Run tests
+python -m unittest -b
+# To run Postman tests, comment out '@jwt_required' line above each method in app.py that you want to test

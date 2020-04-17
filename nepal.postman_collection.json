@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "f8611987-f7cd-4a45-8cb8-124d511f431c",
+		"name": "nepal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/movies",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get movie using ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/movies/<index>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"movies",
+						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search movie by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/movies/search/<query>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"movies",
+						"search",
+						"<query>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search movie by review",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/review/search/<query>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"review",
+						"search",
+						"<query>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter movie by score",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/scores/search/<score>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"scores",
+						"search",
+						"<score>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/users/all",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello World",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new movie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Star Wars: The Rise of Skywalker\",\n    \"casts\": [\"Daisy Ridley\", \"Adam Driver\"],\n    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n    \"reviews\": [\"review1\"],\n    \"all_scores\": [4]\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/movies",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a movie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/movies/<index>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"movies",
+						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a review",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"new_review\": \"Check out this movie\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/review/<index>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"review",
+						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a score",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"new_score\": 3\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/scores/<index>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"scores",
+						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all reviews for a movie",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"new_review\": \"Check out this movie\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/review/<index>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"review",
+						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get scores using movie ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"new_review\": \"Check out this movie\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/scores/<index>",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"scores",
+						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User signup example",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"jbnq@gmail.com\",\n    \"password\": \"jainepal\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/signup/auth",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"signup",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User login example",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"jbn2@gmail.com\",\n    \"password\": \"jainepal\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/login/auth",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"login",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
