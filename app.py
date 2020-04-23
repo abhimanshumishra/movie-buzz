@@ -220,12 +220,44 @@ def update_score(index):
     except Exception as e:
         return {'message': "Something went wrong"}, 500
 
-@app.route('/scores/search/<query>', methods=['GET'])
+# return movies that have score higher than threshold
+@app.route('/scores/filter/<query>', methods=['GET'])
 def filter_by_score(query):
     movies = Movie.objects()
     threshold = float(query)
     results = []
     for movie in movies:
         if movie.score >= threshold:
+            results.append(movie)
+    return {'results': results}, 200
+
+# return movies that have a specific score
+@app.route('/scores/search/<query>', methods=['GET'])
+def search_by_score(query):
+    movies = Movie.objects()
+    threshold = float(query)
+    results = []
+    for movie in movies:
+        if movie.score == threshold:
+            results.append(movie)
+    return {'results': results}, 200
+
+# return movies that have a specific genre
+@app.route('/genre/search/<query>', methods=['GET'])
+def search_genre(query):
+    movies = Movie.objects()
+    results = []
+    for movie in movies:
+        if query in movie.genres:
+            results.append(movie)
+    return {'results': results}, 200
+
+# return movies that have a specific cast member
+@app.route('/cast/search/<query>', methods=['GET'])
+def search_cast(query):
+    movies = Movie.objects()
+    results = []
+    for movie in movies:
+        if query in movie.cast:
             results.append(movie)
     return {'results': results}, 200
