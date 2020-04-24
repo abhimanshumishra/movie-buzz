@@ -168,7 +168,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Star Wars: The Rise of Skywalker\",\n    \"casts\": [\"Daisy Ridley\", \"Adam Driver\"],\n    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n    \"reviews\": [\"review1\"],\n    \"all_scores\": [4]\n}"
+					"raw": "{\n\t\"name\": \"Star Wars: The Hell of Skywalker\",\n    \"casts\": [\"Daisy Ridley\", \"Adam Driver\"],\n    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n    \"reviews\": [\"review1\"],\n    \"all_scores\": [4],\n    \"box_office\": 6000\n}"
 				},
 				"url": {
 					"raw": "127.0.0.1:5000/movies",
@@ -381,6 +381,50 @@
 					"path": [
 						"login",
 						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get movie with highest box office",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/money/high",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"money",
+						"high"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get movie with highest box office Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/money/low",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"money",
+						"low"
 					]
 				}
 			},

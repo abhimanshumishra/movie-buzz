@@ -16,9 +16,6 @@ jwt = JWTManager(app)
 
 db = initialize_db(app)
 
-def format(message, status):
-    return jsonify({"message": message, "status": status})
-
 @app.route('/', methods=['GET'])
 def hello():
     return 'Jai Nepal'
@@ -261,3 +258,24 @@ def search_cast(query):
         if query in movie.cast:
             results.append(movie)
     return {'results': results}, 200
+
+# box office related queries
+@app.route('/money/filter/<query>', methods=['GET'])
+def filter_by_box_office_collection(query):
+    movies = Movie.objects()
+    threshold = float(query)
+    results = []
+    for movie in movies:
+        if movie.box_office >= threshold:
+            results.append(movie)
+    return {'results': results}, 200
+
+@app.route('/money/high', methods=['GET'])
+def most_profitable_movie():
+    movie = Movie.objects().order_by("-box_office").limit(1).first()
+    return {'results': movie}, 200
+
+@app.route('/money/low', methods=['GET'])
+def least_profitable_movie():
+    movie = Movie.objects().order_by("-box_office").limit(1).first()
+    return {'results': movie}, 200
