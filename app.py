@@ -239,6 +239,24 @@ def search_by_score(query):
             results.append(movie)
     return {'results': results}, 200
 
+# highest scoring movie
+@app.route('/scores/high/', methods=['GET'])
+def best_movie():
+    movie = Movie.objects().order_by("-agg_score").limit(1).first()
+    return {'results': movie}, 200
+
+# return n highest scoring movies
+@app.route('/scores/high/<number>', methods=['GET'])
+def best_movies(number):
+    movie = Movie.objects().order_by("-agg_score").limit(int(number))
+    return {'results': movie}, 200
+
+# return n worst scoring movies
+@app.route('/scores/low/<number>', methods=['GET'])
+def worst_movies(number):
+    movie = Movie.objects().order_by("agg_score").limit(int(number))
+    return {'results': movie}, 200
+
 # return movies that have a specific genre
 @app.route('/genre/search/<query>', methods=['GET'])
 def search_genre(query):
@@ -270,12 +288,20 @@ def filter_by_box_office_collection(query):
             results.append(movie)
     return {'results': results}, 200
 
+# highest grossing movie
 @app.route('/money/high', methods=['GET'])
 def most_profitable_movie():
     movie = Movie.objects().order_by("-box_office").limit(1).first()
     return {'results': movie}, 200
 
+# least grossing movie
 @app.route('/money/low', methods=['GET'])
 def least_profitable_movie():
     movie = Movie.objects().order_by("-box_office").limit(1).first()
+    return {'results': movie}, 200
+
+# return n highest grossing movies
+@app.route('/money/highest/<number>', methods=['GET'])
+def highest_grossing_movies(number):
+    movie = Movie.objects().order_by("-agg_score").limit(int(number))
     return {'results': movie}, 200

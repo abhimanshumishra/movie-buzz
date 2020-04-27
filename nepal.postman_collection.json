@@ -409,6 +409,28 @@
 			"response": []
 		},
 		{
+			"name": "Get movie with highest rating",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/scores/high",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"scores",
+						"high"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get movie with highest box office Copy",
 			"request": {
 				"method": "GET",
