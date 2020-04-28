@@ -100,7 +100,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:5000/scores/search/<score>",
+					"raw": "127.0.0.1:5000/scores/filter/<score>",
 					"host": [
 						"127",
 						"0",
@@ -110,7 +110,7 @@
 					"port": "5000",
 					"path": [
 						"scores",
-						"search",
+						"filter",
 						"<score>"
 					]
 				}
