@@ -132,4 +132,9 @@ def login(email, password):
 # put requests - 3
 # delete requests - 1
 
+def delete_movie(query):
+    r = requests.get(url = URL+'/movies/'+query)
+    status_code = r.status_code
+    return status_code
+
 
