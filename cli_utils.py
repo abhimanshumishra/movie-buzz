@@ -97,6 +97,38 @@ def highest_grossing_movies(query):
     return data
 
 # post requests - 3
+
+def add_movie(name, cast, genres, reviews, all_scores, box_office):
+    data = {
+        'name': name,
+        'casts': cast,
+        'genres': genres,
+        'reviews': reviews,
+        'all_scores': all_scores,
+        'box_office': box_office
+    }
+    r = requests.post(url = URL+'/movies', response = data)
+    response = r.json()
+    return response
+
+def signup(email, password):
+    data = {
+        'email': email,
+        'password': password
+    }
+    r = requests.post(url = URL+'/signup/auth', response = data)
+    response = r.json()
+    return response
+
+def login(email, password):
+    data = {
+        'email': email,
+        'password': password
+    }
+    r = requests.post(url = URL+'/movies', response = data)
+    response = r.json()
+    return response
+
 # put requests - 3
 # delete requests - 1
 
