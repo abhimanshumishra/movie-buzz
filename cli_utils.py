@@ -108,7 +108,7 @@ def add_movie(name, cast, genres, reviews, all_scores, score, box_office):
         'box_office': box_office,
         'score': score
     }
-    r = requests.post(url = URL+'/movies', json = data)
+    r = requests.post(url = URL+'movies', json = data)
     response = r.json()
     return response
 
@@ -117,7 +117,7 @@ def signup(email, password):
         'email': email,
         'password': password
     }
-    r = requests.post(url = URL+'/signup/auth', json = data)
+    r = requests.post(url = URL+'signup/auth', json = data)
     response = r.json()
     return response
 
@@ -126,7 +126,7 @@ def login(email, password):
         'email': email,
         'password': password
     }
-    r = requests.post(url = URL+'/movies', json = data)
+    r = requests.post(url = URL+'movies', json = data)
     response = r.json()
     return response
 
@@ -169,5 +169,4 @@ def delete_movie(query):
     r = requests.get(url = URL+'/movies/'+query)
     status_code = r.status_code
     return status_code
-
 
