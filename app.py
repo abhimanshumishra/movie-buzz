@@ -8,6 +8,7 @@ from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, 
 import config
 import os
 import datetime
+import re
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -15,6 +16,9 @@ bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
 db = initialize_db(app)
+
+def format(message, status):
+    return jsonify({"message": message, "status": status})
 
 @app.route('/', methods=['GET'])
 def hello():
@@ -61,12 +65,22 @@ def get_users():
     users = User.objects().to_json()
     return Response(users, mimetype="application/json", status=200)
 
+@app.route('/users/all', methods=['DELETE'])
+def delete_all_users():
+    User.drop_collection()
+    return {'results': (User.objects.first() == None)}, 200
+
 # movie related routes
 
 @app.route('/movies', methods=['GET'])
 def get_movies():
     movies = Movie.objects().to_json()
     return Response(movies, mimetype="application/json", status=200)
+
+@app.route('/movies/all', methods=['DELETE'])
+def delete_all_movies():
+    Movie.drop_collection()
+    return {'results': (Movie.objects.first() == None)}, 200
 
 # search movie by index - one index corresponds only to one movie
 @app.route('/movies/<index>', methods=['GET'])
@@ -88,6 +102,24 @@ def add_movie():
         movie = Movie(**body).save()
         idx = movie.id
         return {'id': str(idx)}, 200
+    except InvalidQueryError:
+        return {'message': "Request is missing required fields"}, 400
+    except NotUniqueError:
+        return {'message': "Movie with given name already exists"}, 400
+    except Exception as e:
+        return {'message': "Something went wrong"}, 500
+
+# add multiple new movies
+@jwt_required
+@app.route('/movies/many', methods=['POST'])
+def add_many_movies():
+    try:
+        body = request.get_json(force=True)
+        movies = []
+        for item in body:
+            movies.append(Movie(**item))
+        Movie.objects.insert(movies)
+        return '', 200
     except InvalidQueryError:
         return {'message': "Request is missing required fields"}, 400
     except NotUniqueError:
@@ -123,12 +155,8 @@ def delete_movie(index):
 
 @app.route('/movies/search/<query>', methods=['GET'])
 def search_by_name(query):
-    movies = Movie.objects()
-    results = []
-    for movie in movies:
-        if query in movie.name.lower():
-            results.append(movie)
-    return {'results': results}, 200
+    res = Movie.objects(name__icontains=query)
+    return {'results': res}, 200
 
 # review related routes
 
@@ -168,6 +196,8 @@ def update_review(index):
 
 @app.route('/review/search/<query>', methods=['GET'])
 def search_review(query):
+    results = Movie.objects(reviews=re.compile('.*'+query+'.*', re.IGNORECASE))
+    return {'results': results}, 200
     movies = Movie.objects()
     results = []
     for movie in movies:
@@ -217,26 +247,14 @@ def update_score(index):
     except Exception as e:
         return {'message': "Something went wrong"}, 500
 
-# return movies that have score higher than threshold
 @app.route('/scores/filter/<query>', methods=['GET'])
 def filter_by_score(query):
-    movies = Movie.objects()
-    threshold = float(query)
-    results = []
-    for movie in movies:
-        if movie.score >= threshold:
-            results.append(movie)
+    results = Movie.objects(score__gte=query)
     return {'results': results}, 200
 
-# return movies that have a specific score
 @app.route('/scores/search/<query>', methods=['GET'])
 def search_by_score(query):
-    movies = Movie.objects()
-    threshold = float(query)
-    results = []
-    for movie in movies:
-        if movie.score == threshold:
-            results.append(movie)
+    results = Movie.objects(score=query)
     return {'results': results}, 200
 
 # highest scoring movie
@@ -257,37 +275,19 @@ def worst_movies(number):
     movie = Movie.objects().order_by("agg_score").limit(int(number))
     return {'results': movie}, 200
 
-# return movies that have a specific genre
 @app.route('/genre/search/<query>', methods=['GET'])
 def search_genre(query):
-    movies = Movie.objects()
-    results = []
-    for movie in movies:
-        if query in movie.genres:
-            results.append(movie)
+    results = Movie.objects(genres=re.compile(query, re.IGNORECASE))
     return {'results': results}, 200
 
-# return movies that have a specific cast member
 @app.route('/cast/search/<query>', methods=['GET'])
 def search_cast(query):
-    movies = Movie.objects()
-    results = []
-    for movie in movies:
-        for cast in movie.casts:
-            if query in cast.lower():
-                results.append(movie)
+    results = Movie.objects(casts=re.compile(query, re.IGNORECASE))
     return {'results': results}, 200
 
-
-# box office related queries
 @app.route('/money/filter/<query>', methods=['GET'])
 def filter_by_box_office_collection(query):
-    movies = Movie.objects()
-    threshold = float(query)
-    results = []
-    for movie in movies:
-        if movie.box_office >= threshold:
-            results.append(movie)
+    results = Movie.objects(box_office__gte=query)
     return {'results': results}, 200
 
 # highest grossing movie

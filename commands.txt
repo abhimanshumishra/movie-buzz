@@ -4,7 +4,7 @@ conda activate nep
 pip install -r requirements.txt
 brew tap mongodb/brew
 brew install mongodb-community@4.2
-# Fill in your username here - it's the folder name that shows up when you type `ls /usr/Users` into terminal (not 'Shared')
+# Fill in your username here - it's the folder name that shows up when you type `ls /Users` into terminal (not 'Shared')
 mkdir /Users/<Username>/data
 mkdir /Users/<Username>/data/db
 
@@ -14,8 +14,45 @@ mongod --dbpath=/Users/<Username>/data/db
 # Open a separate terminal and navigate to the correct directory
 python run.py
 
+# Run CLI
+python cli.py
+
 # Run tests
 python -m unittest -b
 # To run individual tests
 python -m unittest -v <testname>
-# To run Postman tests, comment out '@jwt_required' line above each method in app.py that you want to test
+# There is an additional Postman test suite that can be used
+
+# Files
+app.py - Flask server routes
+cli.py - Command Line Interface
+cli_utils.py - Helper functions for CLI
+config.py - Configurations for MongoDB and JWT
+database/db.py - Initialise MongoDB database
+database/models.py - Database schema and classes
+run.py - Run Flask server
+requirements.txt - Python package list required for project to work
+tests/ - Folder with various unit tests
+
+We use flask-mongoengine to connect to mongoDB using Python and Flask. 
+It is built on top of PyMongo.
+MongoDB is a NoSQL database so each entity can be thought of as a document or collection.
+There is no relationship between two entities in such a schema.
+Using database models for movies and users allows us to handle data easily and simplifies how we write out queries.
+
+# Database Schema
+Movie(name, casts, genres, reviews, all_scores, score, box_office)
+User(email, password)
+
+# Queries
+## Create
+db.insert_one(Movie) => Movie.save()
+db.insert_one(User) => User.save()
+
+## Read
+
+## Update
+db.update_one({'all_scores': old_movie_scores}, {"$set": {'all_scores': movie_scores}}) => Movie.objects.get(id=index).update(all_scores=movie_scores)
+
+## Delete
+db.delete_one({'id': index}) => Movie.objects.get(id=index).delete()

@@ -96,7 +96,7 @@ def highest_grossing_movies(query):
     response = r.json()
     return response
 
-# post requests - 3
+# post requests - 4
 
 def add_movie(name, cast, genres, reviews, all_scores, score, box_office):
     data = {
@@ -111,6 +111,23 @@ def add_movie(name, cast, genres, reviews, all_scores, score, box_office):
     r = requests.post(url = URL+'movies', json = data)
     response = r.json()
     return response
+
+def add_multiple_movies(names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices):
+    data = []
+    for i in range(len(names)):
+        item = {
+            'name': names[i],
+            'casts': casts[i],
+            'genres': genre_list[i],
+            'reviews': reviews_list[i],
+            'all_scores': all_scores_list[i],
+            'box_office': box_offices[i],
+            'score': score_list[i]
+        }
+        data.append(item)
+    r = requests.post(url = URL+'movies/many', json = data)
+    status_code = r.status_code()
+    return status_code
 
 def signup(email, password):
     data = {
@@ -166,7 +183,16 @@ def update_movie(movie_id, name, cast, genres, reviews, all_scores, score, box_o
 # delete requests - 1
 
 def delete_movie(query):
-    r = requests.get(url = URL+'/movies/'+query)
+    r = requests.delete(url = URL+'/movies/'+query)
     status_code = r.status_code
     return status_code
 
+def delete_all_movies():
+    r = requests.delete(url = URL+'/movies')
+    success = r.json()['results']
+    return success
+
+def delete_all_users():
+    r = requests.delete(url = URL+'/users/all')
+    success = r.json()['results']
+    return success

@@ -65,7 +65,10 @@ main_menu_str = "\
 \t22. See top grossing movies \n \
 \t23. See lowest grossing movie \n \
 \t24. See all information about a movie\n \
-\t25. Exit \n \
+\t25. Delete all movies in database\n \
+\t26. Delete all users in database\n \
+\t27. Add multiple movies into database\n \
+\t28. Exit \n \
 "
 
 def movie_id_map():
@@ -77,7 +80,6 @@ def movie_id_map():
     return movie_to_id_map
 
 def menu():
-    movie_to_idx_mapper = movie_id_map()
     print(welcome_str)
     while True:
         print(main_menu_str)
@@ -114,7 +116,7 @@ def menu():
             break
         elif choice == 4:
             query = input('Enter genre: ')
-            search_results = cli_utils.search_by_genre(query)['results']
+            search_results = cli_utils.search_by_genre(query.lower())['results']
             if len(search_results) == 0:
                 print('No matching movie found')
             for result in search_results:
@@ -330,8 +332,57 @@ def menu():
                 movie.get_all_information()
             except:
                 print('Something went wrong')
-            break
         elif choice == 24:
+            success = cli_utils.delete_all_movies()
+            if success:
+                print('Successfully deleted all movies')
+            else:
+                print('Something went wrong')
+            break
+        elif choice == 25:
+            success = cli_utils.delete_all_users()
+            if success:
+                print('Successfully deleted all users')
+            else:
+                print('Something went wrong')
+            break
+        elif choice == 26:
+            num = int(input('How many movies do you want to add? '))
+            names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices = [], [], [], [], [], [], []
+            for i in range(num):
+                name = input('Enter movie name: ')
+                review = input('Enter review: ')
+                score = float(input('Enter rating: '))
+                box_office = float(input('Enter box office collection: '))
+                genres, cast = [], []
+                while True:
+                    genre = input('Add genre (N to skip): ')
+                    if genre.lower() == 'n' and len(genres) == 0:
+                        print('You have to add atleast one genre')
+                    elif genre.lower() == 'n':
+                        break
+                    genres.append(genre)
+                while True:
+                    member = input('Add cast member (N to skip): ')
+                    if member.lower() == 'n' and len(cast) == 0:
+                        print('You have to add atleast one cast member')
+                    elif member.lower() == 'n':
+                        break
+                    cast.append(member)
+                names.append(name)
+                casts.append(cast)
+                genre_list.append(genres)
+                reviews_list.append([review])
+                all_scores_list.append([score])
+                score_list.append(score)
+                box_offices.append(box_office)
+                response = cli_utils.add_multiple_movies(names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices)
+                if response == 200:
+                    print('All movies added successfully')
+                else:
+                    print('Something went wrong')
+            break
+        elif choice == 27:
             break
         else:
             print('Invalid input')
