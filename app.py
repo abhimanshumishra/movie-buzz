@@ -263,8 +263,9 @@ def search_genre(query):
     movies = Movie.objects()
     results = []
     for movie in movies:
-        if query in movie.genres:
-            results.append(movie)
+        for cast in movie.casts:
+            if query in cast.lower():
+                results.append(movie)
     return {'results': results}, 200
 
 # return movies that have a specific cast member

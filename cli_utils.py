@@ -37,7 +37,7 @@ def search_movie_by_score(query):
     return response
 
 def get_users():
-    r = requests.get(url = URL+'users')
+    r = requests.get(url = URL+'users/all')
     response = r.json()
     return response
 
