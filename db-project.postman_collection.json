@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f8611987-f7cd-4a45-8cb8-124d511f431c",
+		"_postman_id": "10b041a9-7fa4-4432-be06-af80b8399090",
 		"name": "nepal",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,27 +9,6 @@
 			"name": "Get all movies",
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:5000/movies",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"movies"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete all movies",
-			"request": {
-				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "127.0.0.1:5000/movies",
@@ -93,29 +72,6 @@
 			"response": []
 		},
 		{
-			"name": "Search movie by genre",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:5000/genre/search/<query>",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"genre",
-						"search",
-						"<query>"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Search movie by review",
 			"request": {
 				"method": "GET",
@@ -162,54 +118,9 @@
 			"response": []
 		},
 		{
-			"name": "Search movie by score",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:5000/scores/filter/<score>",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"scores",
-						"filter",
-						"<score>"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get all users",
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:5000/users/all",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"users",
-						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete all users",
-			"request": {
-				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "127.0.0.1:5000/users/all",
@@ -257,7 +168,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Star Wars: The Rise of Skywalker\",\n    \"casts\": [\"Daisy Ridley\", \"Adam Driver\"],\n    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n    \"reviews\": [\"review1\"],\n    \"all_scores\": [4],\n    \"score\": 4,\n    \"box_office\": 6000\n}"
+					"raw": "{\n\t\"name\": \"Skyfall\",\n    \"casts\": [\"Daniel Craig\", \"Adam Driver\"],\n    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n    \"reviews\": [\"review1\"],\n    \"all_scores\": [4],\n    \"score\": 4,\n    \"box_office\": 60000\n}"
 				},
 				"url": {
 					"raw": "127.0.0.1:5000/movies",
@@ -276,16 +187,16 @@
 			"response": []
 		},
 		{
-			"name": "Add multiple new movies",
+			"name": "Update movie",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n\t{\n\t\t\"name\": \"Multi movie test 1\",\n\t    \"casts\": [\"Daisy Ridley\", \"Adam Driver\"],\n\t    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n\t    \"reviews\": [\"review1\"],\n\t    \"all_scores\": [4],\n\t    \"score\": 4,\n\t    \"box_office\": 6000\n\t},\n\t{\n\t\t\"name\": \"Multi movie test 2\",\n\t    \"casts\": [\"Daisy Ridley\", \"Adam Driver\"],\n\t    \"genres\": [\"Horror\", \"Sci-fi\"],\n\t    \"reviews\": [\"review1\"],\n\t    \"all_scores\": [3],\n\t    \"score\": 3,\n\t    \"box_office\": 4000\n\t}\n]"
+					"raw": "{\n\t\"name\": \"Skyfal\",\n    \"casts\": [\"Daniel Craig\", \"Adam Driver\"],\n    \"genres\": [\"Fantasy\", \"Sci-fi\"],\n    \"reviews\": [\"review1\"],\n    \"all_scores\": [4],\n    \"score\": 4,\n    \"box_office\": 60000\n}"
 				},
 				"url": {
-					"raw": "127.0.0.1:5000/movies/many",
+					"raw": "127.0.0.1:5000/movies/<index>",
 					"host": [
 						"127",
 						"0",
@@ -295,7 +206,7 @@
 					"port": "5000",
 					"path": [
 						"movies",
-						"many"
+						"<index>"
 					]
 				}
 			},
@@ -322,6 +233,32 @@
 					"path": [
 						"movies",
 						"<index>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all movies",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/movies/all",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"movies",
+						"all"
 					]
 				}
 			},
@@ -450,7 +387,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"jb1@gmail.com\",\n    \"password\": \"jainepal\"\n}"
+					"raw": "{\n    \"email\": \"jbnq@gmail.com\",\n    \"password\": \"jainepal\"\n}"
 				},
 				"url": {
 					"raw": "127.0.0.1:5000/signup/auth",
@@ -546,7 +483,7 @@
 			"response": []
 		},
 		{
-			"name": "Get movie with lowest box office",
+			"name": "Get movie with highest box office Copy",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -566,29 +503,7 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "Get movie with box office higher than threshold",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:5000/money/filter/<money>",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"money",
-						"filter",
-						"<money>"
-					]
-				}
-			},
-			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
