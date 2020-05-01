@@ -154,8 +154,7 @@ def add_new_review(movie_id, review):
         'new_review': review
     }
     r = requests.put(url = URL+'review/'+movie_id, json = data)
-    status_code = r.status_code
-    return status_code
+    return r.status_code()
 
 def add_new_rating(movie_id, score):
     score = float(score)
@@ -163,8 +162,7 @@ def add_new_rating(movie_id, score):
         'new_score': score
     }
     r = requests.put(url = URL+'scores/'+movie_id, json = data)
-    status_code = r.status_code
-    return status_code
+    return r.status_code
 
 def update_movie(movie_id, name, cast, genres, reviews, all_scores, score, box_office):
     data = {
@@ -184,8 +182,7 @@ def update_movie(movie_id, name, cast, genres, reviews, all_scores, score, box_o
 
 def delete_movie(query):
     r = requests.delete(url = URL+'/movies/'+query)
-    status_code = r.status_code
-    return status_code
+    return r.status_code()
 
 def delete_all_movies():
     r = requests.delete(url = URL+'/movies')

@@ -136,6 +136,7 @@ def menu():
                 genre = input('Add genre (N to skip): ')
                 if genre.lower() == 'n' and len(genres) == 0:
                     print('You have to add atleast one genre')
+                    continue
                 elif genre.lower() == 'n':
                     break
                 genres.append(genre)
@@ -143,6 +144,7 @@ def menu():
                 member = input('Add cast member (N to skip): ')
                 if member.lower() == 'n' and len(cast) == 0:
                     print('You have to add atleast one cast member')
+                    continue
                 elif member.lower() == 'n':
                     break
                 cast.append(member)
@@ -220,7 +222,7 @@ def menu():
                 print(review)
         elif choice == 10:
             movie_name = input('Enter exact name of movie you want to add a review for: ')
-            movie_id = movie_to_idx_mapper[movie_name]
+            movie_id = movie_to_idx_mapper[movie_name.lower()]
             new_review = input('Enter new review: ')
             response = cli_utils.add_review(movie_id, new_review)
             if response == 200:
@@ -244,10 +246,11 @@ def menu():
             scores_str = ', '.join([str(s) for s in scores])
             print(scores_str)
         elif choice == 13:
+            movie_to_idx_mapper = movie_id_map()
             movie_name = input('Enter exact name of movie you want to add a score for: ')
-            movie_id = movie_to_idx_mapper[movie_name]
+            movie_id = movie_to_idx_mapper[movie_name.lower()]
             new_score = input('Enter new score: ')
-            response = cli_utils.add_score(movie_id, new_score)
+            response = cli_utils.add_new_rating(movie_id, new_score)
             if response == 200:
                 print('Score added successfully')
             else:
@@ -335,6 +338,7 @@ def menu():
                     genre = input('Add genre (N to skip): ')
                     if genre.lower() == 'n' and len(genres) == 0:
                         print('You have to add atleast one genre')
+                        continue
                     elif genre.lower() == 'n':
                         break
                     genres.append(genre)
@@ -342,6 +346,7 @@ def menu():
                     member = input('Add cast member (N to skip): ')
                     if member.lower() == 'n' and len(cast) == 0:
                         print('You have to add atleast one cast member')
+                        continue
                     elif member.lower() == 'n':
                         break
                     cast.append(member)
@@ -353,10 +358,10 @@ def menu():
                 score_list.append(score)
                 box_offices.append(box_office)
                 response = cli_utils.add_multiple_movies(names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices)
-                if response == 200:
-                    print('All movies added successfully')
-                else:
-                    print('Something went wrong')
+            if response == 200:
+                print('All movies added successfully')
+            else:
+                print('Something went wrong')
         elif choice == 27:
             break
         else:

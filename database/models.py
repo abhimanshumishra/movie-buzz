@@ -6,7 +6,7 @@ class Movie(db.Document):
     casts = db.ListField(db.StringField(), required=True)
     genres = db.ListField(db.StringField(), required=True)
     reviews = db.ListField(db.StringField(), required=False)
-    all_scores = db.ListField(db.IntField(), required=False)
+    all_scores = db.ListField(db.FloatField(), required=False)
     score = db.FloatField(required=False)
     box_office = db.FloatField(required=False)
 

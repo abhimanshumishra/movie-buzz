@@ -229,7 +229,7 @@ def update_score(index):
         body = request.get_json(force=True)
         movie_scores = Movie.objects.get(id=index)['all_scores']
         movie_scores = list(movie_scores)
-        movie_scores.append(body['new_score'])
+        movie_scores.append(float(body['new_score']))
         agg_score = sum(movie_scores)/len(movie_scores)
         Movie.objects.get(id=index).update(all_scores=movie_scores, score=agg_score)
         return '', 200 
