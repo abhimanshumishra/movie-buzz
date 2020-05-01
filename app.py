@@ -213,7 +213,7 @@ def get_scores(index):
         calc_agg_score = sum(movie_scores)/len(movie_scores)
         if type(agg_score) != float:
             agg_score = calc_agg_score
-        return {'scores': movie_scores, 'agg_score': agg_score}, 200
+        return {'all_scores': movie_scores, 'score': agg_score}, 200
     except InvalidQueryError:
         return {'message': "Request is missing required fields"}, 400
     except DoesNotExist:
@@ -253,19 +253,19 @@ def search_by_score(query):
 # highest scoring movie
 @app.route('/scores/high/', methods=['GET'])
 def best_movie():
-    movie = Movie.objects().order_by("-agg_score").limit(1).first()
+    movie = Movie.objects().order_by("-score").limit(1).first()
     return {'results': movie}, 200
 
 # return n highest scoring movies
 @app.route('/scores/high/<number>', methods=['GET'])
 def best_movies(number):
-    movie = Movie.objects().order_by("-agg_score").limit(int(number))
+    movie = Movie.objects().order_by("-score").limit(int(number))
     return {'results': movie}, 200
 
 # return n worst scoring movies
 @app.route('/scores/low/<number>', methods=['GET'])
 def worst_movies(number):
-    movie = Movie.objects().order_by("agg_score").limit(int(number))
+    movie = Movie.objects().order_by("score").limit(int(number))
     return {'results': movie}, 200
 
 @app.route('/genre/search/<query>', methods=['GET'])
@@ -298,5 +298,5 @@ def least_profitable_movie():
 # return n highest grossing movies
 @app.route('/money/highest/<number>', methods=['GET'])
 def highest_grossing_movies(number):
-    movie = Movie.objects().order_by("-agg_score").limit(int(number))
+    movie = Movie.objects().order_by("-box_office").limit(int(number))
     return {'results': movie}, 200

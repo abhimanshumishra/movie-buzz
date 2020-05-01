@@ -67,7 +67,7 @@ db.insert_one(User) => User.save()
 ## Read
 
 ### Select
-#### Find movie by query in name
+####* Find movie by query in name
 db.Movie.find({'name': {$regex: ".*"+query+".*/i"}}) => Movie.objects(name__icontains=query)
 #### Find movies with particular score
 db.Movie.find({'score': query}) => Movie.objects(score=query)
@@ -75,14 +75,14 @@ db.Movie.find({'score': query}) => Movie.objects(score=query)
 db.Movie.find({'score': {"$gte": query }}) => Movie.objects(score__gte=query)
 #### Find movies with box office collection higher than a threshold
 db.Movie.find({'box_office': {"$gte": query }}) => Movie.objects(box_office__gte=query)
-#### Find movie by query in any review
+####* Find movie by query in any review
 db.Movie.find({'reviews': {$regex: ".*"+query+".*/i"}}) => Movie.objects(reviews=re.compile('.*'+query+'.*', re.IGNORECASE))
-#### Find movie by query in any genre
+####* Find movie by query in any genre
 db.Movie.find({'genres': {$regex: ".*"+query+".*/i"}}) => Movie.objects(genres=re.compile('.*'+query+'.*', re.IGNORECASE))
-#### Find movie by query in any cast member name
+####* Find movie by query in any cast member name
 db.Movie.find({'casts': {$regex: ".*"+query+".*/i"}}) => Movie.objects(casts=re.compile('.*'+query+'.*', re.IGNORECASE))
 
-### Aggregation
+###* Aggregation
 #### Find any number of movies sorted in ascending order of box office collection
 db.Movie.find().sort({'box_office': 1}).limit(number) => Movie.objects().order_by("box_office").limit(number)
 #### Find any number of movies sorted in ascending order of rating

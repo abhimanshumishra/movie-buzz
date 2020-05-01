@@ -34,8 +34,9 @@ class Movie():
     def get_all_information(self):
         scores_str = ', '.join([str(s) for s in self.all_scores])
         cast_str = ', '.join([c for c in self.casts])
+        review_str = ' | '.join([r for r in self.reviews])
         genre_str = ', '.join([g for g in self.genres])
-        print(f'Movie name: {self.name}; Cast: {cast_str}; Genres: {genre_str}; All ratings: {scores_str}; Overall rating: {self.score}; Box office draw: ${self.box_office}')
+        print(f'Movie name: {self.name}; Cast: {cast_str}; Genres: {genre_str}; All ratings: {scores_str}; Overall rating: {self.score}; Box office draw: ${self.box_office}; Reviews: {review_str}')
 
 welcome_str = "Welcome to Movie-DB, the database course project by Abhimanshu Mishra and Ramandeep Kaur\n"
 
@@ -183,7 +184,7 @@ def menu():
                 else:
                     update_review = [new_review]
                 if len(new_cast) == 0:
-                    update_cast = old_movie_information.cast
+                    update_cast = old_movie_information.casts
                 else:
                     update_cast = new_cast
                 if len(new_genres) == 0:
@@ -221,10 +222,11 @@ def menu():
             for review in reviews:
                 print(review)
         elif choice == 10:
+            movie_to_idx_mapper = movie_id_map()
             movie_name = input('Enter exact name of movie you want to add a review for: ')
             movie_id = movie_to_idx_mapper[movie_name.lower()]
             new_review = input('Enter new review: ')
-            response = cli_utils.add_review(movie_id, new_review)
+            response = cli_utils.add_new_review(movie_id, new_review)
             if response == 200:
                 print('Review added successfully')
             else:
@@ -357,7 +359,7 @@ def menu():
                 all_scores_list.append([score])
                 score_list.append(score)
                 box_offices.append(box_office)
-                response = cli_utils.add_multiple_movies(names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices)
+            response = cli_utils.add_multiple_movies(names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices)
             if response == 200:
                 print('All movies added successfully')
             else:

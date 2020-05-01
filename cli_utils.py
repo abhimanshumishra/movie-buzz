@@ -78,7 +78,7 @@ def search_by_cast(query):
 
 def filter_by_box_office_collection(query):
     r = requests.get(url = URL+'money/filter/'+query)
-    response = r.json()
+    response = r.json()['results']
     return response
 
 def highest_grossing_movie():
@@ -126,8 +126,7 @@ def add_multiple_movies(names, casts, genre_list, reviews_list, all_scores_list,
         }
         data.append(item)
     r = requests.post(url = URL+'movies/many', json = data)
-    status_code = r.status_code()
-    return status_code
+    return r.status_code
 
 def signup(email, password):
     data = {
@@ -154,7 +153,7 @@ def add_new_review(movie_id, review):
         'new_review': review
     }
     r = requests.put(url = URL+'review/'+movie_id, json = data)
-    return r.status_code()
+    return r.status_code
 
 def add_new_rating(movie_id, score):
     score = float(score)
@@ -174,18 +173,16 @@ def update_movie(movie_id, name, cast, genres, reviews, all_scores, score, box_o
         'box_office': box_office,
         'score': score
     }
-    r = requests.post(url = URL+'movies/'+movie_id, json = data)
-    response = r.json()
-    return response
+    r = requests.put(url = URL+'movies/'+movie_id, json = data)
 
 # delete requests - 1
 
 def delete_movie(query):
     r = requests.delete(url = URL+'/movies/'+query)
-    return r.status_code()
+    return r.status_code
 
 def delete_all_movies():
-    r = requests.delete(url = URL+'/movies')
+    r = requests.delete(url = URL+'/movies/all')
     success = r.json()['results']
     return success
 
