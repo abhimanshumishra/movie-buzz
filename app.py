@@ -198,13 +198,6 @@ def update_review(index):
 def search_review(query):
     results = Movie.objects(reviews=re.compile('.*'+query+'.*', re.IGNORECASE))
     return {'results': results}, 200
-    movies = Movie.objects()
-    results = []
-    for movie in movies:
-        for review in movie.reviews:
-            if query in review.lower():
-                results.append(movie)
-    return {'results': results}, 200
 
 # score related routes
 
@@ -299,7 +292,7 @@ def most_profitable_movie():
 # least grossing movie
 @app.route('/money/low', methods=['GET'])
 def least_profitable_movie():
-    movie = Movie.objects().order_by("-box_office").limit(1).first()
+    movie = Movie.objects().order_by("box_office").limit(1).first()
     return {'results': movie}, 200
 
 # return n highest grossing movies
