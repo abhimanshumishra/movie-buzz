@@ -90,12 +90,10 @@ def menu():
             for item in movies:
                 movie = Movie(item)
                 movie.get_all_information()
-            break
         elif choice == 1:
             users = cli_utils.get_users()
             for user in users:
                 print(user['email'])
-            break
         elif choice == 2:
             query = input('Enter search query: ')
             search_results = cli_utils.search_movie_by_name(query)['results']
@@ -104,7 +102,6 @@ def menu():
             for result in search_results:
                 movie = Movie(result)
                 movie.get_all_information()
-            break
         elif choice == 3:
             query = input('Enter cast member name: ')
             search_results = cli_utils.search_by_cast(query)['results']
@@ -113,7 +110,6 @@ def menu():
             for result in search_results:
                 movie = Movie(result)
                 movie.get_all_information()
-            break
         elif choice == 4:
             query = input('Enter genre: ')
             search_results = cli_utils.search_by_genre(query.lower())['results']
@@ -122,7 +118,6 @@ def menu():
             for result in search_results:
                 movie = Movie(result)
                 movie.get_all_information()
-            break
         elif choice == 5:
             email = input('Enter email: ')
             password = input('Enter password (minimum 6 characters): ')
@@ -131,7 +126,6 @@ def menu():
                 print('New user created successfully')
             else:
                 print(response['message'])
-            break
         elif choice == 6:
             name = input('Enter movie name: ')
             review = input('Enter review: ')
@@ -157,7 +151,6 @@ def menu():
                 print('Movie added successfully')
             else:
                 print(response['message'])
-            break
         elif choice == 7:
             movie_to_idx_mapper = movie_id_map()
             name = input('Enter exact name of movie you want to update: ')
@@ -217,7 +210,6 @@ def menu():
                 print('successfully deleted')
             else:
                 print('Something went wrong')
-            break
         elif choice == 9:
             movie_to_idx_mapper = movie_id_map()
             name = input('Enter exact name of movie you want to see reviews for: ')
@@ -226,7 +218,6 @@ def menu():
             reviews = response['reviews']
             for review in reviews:
                 print(review)
-            break
         elif choice == 10:
             movie_name = input('Enter exact name of movie you want to add a review for: ')
             movie_id = movie_to_idx_mapper[movie_name]
@@ -236,7 +227,6 @@ def menu():
                 print('Review added successfully')
             else:
                 print('Something went wrong')
-            break
         elif choice == 11:
             query = input('Enter search query: ')
             search_results = cli_utils.search_movie_by_review(query)['results']
@@ -245,7 +235,6 @@ def menu():
             for result in search_results:
                 movie = Movie(result)
                 movie.get_all_information()
-            break
         elif choice == 12:
             movie_to_idx_mapper = movie_id_map()
             name = input('Enter exact name of movie you want to see ratings for: ')
@@ -254,7 +243,6 @@ def menu():
             scores = response['all_scores']
             scores_str = ', '.join([str(s) for s in scores])
             print(scores_str)
-            break
         elif choice == 13:
             movie_name = input('Enter exact name of movie you want to add a score for: ')
             movie_id = movie_to_idx_mapper[movie_name]
@@ -264,7 +252,6 @@ def menu():
                 print('Score added successfully')
             else:
                 print('Something went wrong')
-            break
         elif choice == 14:
             query = input('Enter threshold: ')
             search_results = cli_utils.filter_movie_by_score(query)['results']
@@ -273,7 +260,6 @@ def menu():
             for result in search_results:
                 movie = Movie(result)
                 movie.get_all_information()
-            break
         elif choice == 15:
             query = input('Enter score: ')
             search_results = cli_utils.search_movie_by_score(query)['results']
@@ -282,47 +268,39 @@ def menu():
             for result in search_results:
                 movie = Movie(result)
                 movie.get_all_information()
-            break
         elif choice == 16:
             movie = Movie(cli_utils.highest_scoring_movie()['results'])
             movie.get_all_information()
-            break
         elif choice == 17:
             query = input('Enter number of highest scoring movies you want to see: ')
             movies = cli_utils.highest_scoring_movies(query)['results']
             for item in movies:
                 movie = Movie(item)
                 movie.get_all_information()
-            break
         elif choice == 18:
             query = input('Enter number of lowest scoring movies you want to see: ')
             movies = cli_utils.lowest_scoring_movies(query)['results']
             for item in movies:
                 movie = Movie(item)
                 movie.get_all_information()
-            break
         elif choice == 19:
             query = input('Enter box office threshold: ')
             movies = cli_utils.filter_by_box_office_collection(query)
             for item in movies:
                 movie = Movie(item)
                 movie.get_all_information()
-            break
         elif choice == 20:
             movie = Movie(cli_utils.highest_grossing_movie()['results'])
             movie.get_all_information()
-            break
         elif choice == 21:
             query = input('Enter number of highest grossing movies you want to see: ')
             movies = cli_utils.highest_grossing_movies(query)['results']
             for item in movies:
                 movie = Movie(item)
                 movie.get_all_information()
-            break
         elif choice == 22:
             movie = Movie(cli_utils.lowest_grossing_movie()['results'])
             movie.get_all_information()
-            break
         elif choice == 23:
             movie_to_idx_mapper = movie_id_map()
             name = input('Enter exact name of movie you want to see information for: ')
@@ -338,14 +316,12 @@ def menu():
                 print('Successfully deleted all movies')
             else:
                 print('Something went wrong')
-            break
         elif choice == 25:
             success = cli_utils.delete_all_users()
             if success:
                 print('Successfully deleted all users')
             else:
                 print('Something went wrong')
-            break
         elif choice == 26:
             num = int(input('How many movies do you want to add? '))
             names, casts, genre_list, reviews_list, all_scores_list, score_list, box_offices = [], [], [], [], [], [], []
@@ -381,7 +357,6 @@ def menu():
                     print('All movies added successfully')
                 else:
                     print('Something went wrong')
-            break
         elif choice == 27:
             break
         else:
